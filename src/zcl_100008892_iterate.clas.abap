@@ -10,32 +10,43 @@ ENDCLASS.
 
 CLASS zcl_100008892_iterate IMPLEMENTATION.
 
-  METHOD if_oo_adt_classrun~main.
+METHOD if_oo_adt_classrun~main.
 
-    " Internal table for Fibonacci numbers
-    DATA numbers TYPE TABLE OF i.
+  " Fibonacci numbers (already created in Task 1)
+  DATA numbers TYPE TABLE OF i.
 
-    " Loop max_count times
-    DO max_count TIMES.
+  CONSTANTS max_count TYPE i VALUE 20.
 
-      CASE sy-index.
+  DO max_count TIMES.
+    CASE sy-index.
+      WHEN 1.
+        APPEND 0 TO numbers.
+      WHEN 2.
+        APPEND 1 TO numbers.
+      WHEN OTHERS.
+        APPEND numbers[ sy-index - 2 ] + numbers[ sy-index - 1 ] TO numbers.
+    ENDCASE.
+  ENDDO.
 
-        WHEN 1.
-          APPEND 0 TO numbers.
+  " Output table (string rows)
+  DATA output TYPE TABLE OF string.
 
-        WHEN 2.
-          APPEND 1 TO numbers.
+  " Counter for numbering
+  DATA(counter) = 0.
 
-        WHEN OTHERS.
-          APPEND numbers[ sy-index - 2 ] + numbers[ sy-index - 1 ] TO numbers.
+  " Loop over Fibonacci numbers
+  LOOP AT numbers INTO DATA(number).
 
-      ENDCASE.
+    counter = counter + 1.
 
-    ENDDO.
+    APPEND |{ counter WIDTH = 4 ALIGN = LEFT }: { number WIDTH = 10 ALIGN = RIGHT }|
+      TO output.
 
-    " Output result
-    out->write( numbers ).
+  ENDLOOP.
 
-  ENDMETHOD.
+  " Write to console
+  out->write( output ).
+
+ENDMETHOD.
 
 ENDCLASS.
