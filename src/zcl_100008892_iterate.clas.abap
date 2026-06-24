@@ -44,6 +44,10 @@ METHOD if_oo_adt_classrun~main.
 
   ENDLOOP.
 
+out->write(
+data = output
+name = |The first { max_count } Fibonacci Numbers|
+) .
   " Write to console
   out->write( output ).
 
