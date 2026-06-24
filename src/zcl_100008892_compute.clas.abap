@@ -14,18 +14,45 @@ CLASS zcl_100008892_compute IMPLEMENTATION.
     " Declarations
     DATA number1 TYPE i.
     DATA number2 TYPE i.
+    DATA op TYPE c LENGTH 1.
     DATA result TYPE p LENGTH 8 DECIMALS 2.
+    DATA output TYPE string.
 
-    " Input Values
-    number1 = -8.
-    number2 = 3.
+    " Input values
+    number1 = 123.
+    number2 = 0.
+    op = '/'.
 
-    " Calculation (explicit declaration used, no inline)
-    result = number1 / number2.
+    " Calculation
+    CASE op.
 
-    DATA(output) = |{ number1 } / { number2 } = { result }|.
+      WHEN '+'.
+        result = number1 + number2.
 
-    " Output
+      WHEN '-'.
+        result = number1 - number2.
+
+      WHEN '*'.
+        result = number1 * number2.
+
+      WHEN '/'.
+        TRY.
+            result = number1 / number2.
+          CATCH cx_sy_zerodivide.
+            output = |Division by zero is not defined|.
+        ENDTRY.
+
+      WHEN OTHERS.
+        output = |'{ op }' is not a valid operator!|.
+
+    ENDCASE.
+
+    " Only build output if no error occurred
+    IF output IS INITIAL.
+      output = |{ number1 } { op } { number2 } = { result }|.
+    ENDIF.
+
+    " Console output
     out->write( output ).
 
   ENDMETHOD.
