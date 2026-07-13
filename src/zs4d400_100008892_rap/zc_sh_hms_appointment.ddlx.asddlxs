@@ -1,0 +1,41 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Appointment',
+  typeNamePlural: 'Appointments',
+  title: { type: #STANDARD, value: 'AppointmentID' },
+  description: { type: #STANDARD, value: 'Reason' }
+}
+annotate view ZC_SH_HMS_APPOINTMENT with
+{
+  @UI.facet: [
+    { id: 'General', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Appointment Details', position: 10 }
+  ]
+
+  @UI.lineItem: [ { position: 10, label: 'Appointment ID' } ]
+  @UI.identification: [ { position: 10, label: 'Appointment ID' } ]
+  AppointmentID;
+
+  @UI.selectionField: [ { position: 10 } ]
+  @UI.lineItem: [ { position: 20, label: 'Date' } ]
+  @UI.identification: [ { position: 20, label: 'Date' } ]
+  AppointmentDate;
+
+  @UI.lineItem: [ { position: 30, label: 'Time' } ]
+  @UI.identification: [ { position: 30, label: 'Time' } ]
+  AppointmentTime;
+
+  @UI.selectionField: [ { position: 20 } ]
+  @UI.lineItem: [ { position: 40, label: 'Status' } ]
+  @UI.identification: [ { position: 40, label: 'Status' } ]
+  Status;
+
+  @UI.lineItem: [ { position: 50, label: 'Reason' } ]
+  @UI.identification: [ { position: 50, label: 'Reason' } ]
+  Reason;
+
+  @UI.identification: [ { position: 60, label: 'Priority' } ]
+  Priority;
+
+  @UI.identification: [ { position: 70, label: 'Notes' } ]
+  Notes;
+}

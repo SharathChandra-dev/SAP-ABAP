@@ -1,0 +1,25 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Department',
+  typeNamePlural: 'Departments',
+  title: { type: #STANDARD, value: 'DepartmentID' },
+  description: { type: #STANDARD, value: 'DepartmentName' }
+}
+annotate view ZC_SH_HMS_DEPT with
+{
+  @UI.lineItem: [ { position: 10, label: 'Department ID' } ]
+  @UI.identification: [ { position: 10, label: 'Department ID' } ]
+  DepartmentID;
+
+  @UI.lineItem: [ { position: 20, label: 'Department Name' } ]
+  @UI.identification: [ { position: 20, label: 'Department Name' } ]
+  DepartmentName;
+
+  @UI.lineItem: [ { position: 30, label: 'Floor' } ]
+  @UI.identification: [ { position: 30, label: 'Floor' } ]
+  FloorNo;
+
+  @UI.lineItem: [ { position: 40, label: 'Active' } ]
+  @UI.identification: [ { position: 40, label: 'Active' } ]
+  IsActive;
+}

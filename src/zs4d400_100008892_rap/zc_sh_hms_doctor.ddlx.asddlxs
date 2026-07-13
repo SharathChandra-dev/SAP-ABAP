@@ -1,0 +1,25 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Doctor',
+  typeNamePlural: 'Doctors',
+  title: { type: #STANDARD, value: 'DoctorID' },
+  description: { type: #STANDARD, value: 'DoctorName' }
+}
+annotate view ZC_SH_HMS_DOCTOR with
+{
+  @UI.lineItem: [ { position: 10, label: 'Doctor ID' } ]
+  @UI.identification: [ { position: 10, label: 'Doctor ID' } ]
+  DoctorID;
+
+  @UI.lineItem: [ { position: 20, label: 'Doctor Name' } ]
+  @UI.identification: [ { position: 20, label: 'Doctor Name' } ]
+  DoctorName;
+
+  @UI.lineItem: [ { position: 30, label: 'Specialization' } ]
+  @UI.identification: [ { position: 30, label: 'Specialization' } ]
+  Specialization;
+
+  @UI.lineItem: [ { position: 40, label: 'Active' } ]
+  @UI.identification: [ { position: 40, label: 'Active' } ]
+  IsActive;
+}
