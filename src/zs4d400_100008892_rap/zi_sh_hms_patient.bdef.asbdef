@@ -1,0 +1,36 @@
+managed implementation in class zbp_i_sh_hms_patient unique;
+strict ( 2 );
+
+define behavior for ZI_SH_HMS_PATIENT alias Patient
+persistent table zsh_hms_patient
+lock master
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) PatientUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) PatientID, FirstName, LastName, Phone;
+
+  mapping for zsh_hms_patient
+  {
+    PatientUUID = patient_uuid;
+    PatientID = patient_id;
+    FirstName = first_name;
+    LastName = last_name;
+    DateOfBirth = date_of_birth;
+    Gender = gender;
+    Phone = phone;
+    Email = email;
+    Address = address;
+    CriticalAllergy = critical_allergy;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

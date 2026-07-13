@@ -1,0 +1,32 @@
+managed implementation in class zbp_i_sh_hms_dept unique;
+strict ( 2 );
+
+define behavior for ZI_SH_HMS_DEPT alias Department
+persistent table zsh_hms_dept
+lock master
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) DepartmentUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) DepartmentID, DepartmentName;
+
+  mapping for zsh_hms_dept
+  {
+    DepartmentUUID = department_uuid;
+    DepartmentID = department_id;
+    DepartmentName = department_name;
+    FloorNo = floor_no;
+    Phone = phone;
+    IsActive = is_active;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

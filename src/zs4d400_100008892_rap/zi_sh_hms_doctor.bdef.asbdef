@@ -1,0 +1,34 @@
+managed implementation in class zbp_i_sh_hms_doctor unique;
+strict ( 2 );
+
+define behavior for ZI_SH_HMS_DOCTOR alias Doctor
+persistent table zsh_hms_doctor
+lock master
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) DoctorUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) DoctorID, DoctorName, Specialization, DepartmentUUID;
+
+  mapping for zsh_hms_doctor
+  {
+    DoctorUUID = doctor_uuid;
+    DoctorID = doctor_id;
+    DoctorName = doctor_name;
+    Specialization = specialization;
+    DepartmentUUID = department_uuid;
+    Phone = phone;
+    Email = email;
+    IsActive = is_active;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
