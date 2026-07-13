@@ -1,0 +1,5 @@
+CLASS zbp_i_sh_hms_doctor DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_sh_hms_doctor.
+ENDCLASS.
+
+CLASS zbp_i_sh_hms_doctor IMPLEMENTATION.
+ENDCLASS.
