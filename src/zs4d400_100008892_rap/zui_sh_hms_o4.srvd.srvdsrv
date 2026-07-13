@@ -1,0 +1,8 @@
+@EndUserText.label: 'Hospital Appointment and Visit Service'
+define service ZUI_SH_HMS_O4 {
+  expose ZC_SH_HMS_APPOINTMENT as Appointments;
+  expose ZC_SH_HMS_VISIT       as Visits;
+  expose ZC_SH_HMS_PATIENT     as Patients;
+  expose ZC_SH_HMS_DOCTOR      as Doctors;
+  expose ZC_SH_HMS_DEPT        as Departments;
+}
