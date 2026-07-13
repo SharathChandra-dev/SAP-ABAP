@@ -1,0 +1,24 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Visit',
+  typeNamePlural: 'Visits',
+  title: { type: #STANDARD, value: 'Diagnosis' },
+  description: { type: #STANDARD, value: 'Status' }
+}
+annotate view ZC_SH_HMS_VISIT with
+{
+  @UI.lineItem: [ { position: 10, label: 'Diagnosis' } ]
+  @UI.identification: [ { position: 10, label: 'Diagnosis' } ]
+  Diagnosis;
+
+  @UI.lineItem: [ { position: 20, label: 'Follow Up Date' } ]
+  @UI.identification: [ { position: 20, label: 'Follow Up Date' } ]
+  FollowUpDate;
+
+  @UI.lineItem: [ { position: 30, label: 'Status' } ]
+  @UI.identification: [ { position: 30, label: 'Status' } ]
+  Status;
+
+  @UI.identification: [ { position: 40, label: 'Treatment Notes' } ]
+  TreatmentNotes;
+}

@@ -1,0 +1,28 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Patient',
+  typeNamePlural: 'Patients',
+  title: { type: #STANDARD, value: 'PatientID' },
+  description: { type: #STANDARD, value: 'LastName' }
+}
+annotate view ZC_SH_HMS_PATIENT with
+{
+  @UI.lineItem: [ { position: 10, label: 'Patient ID' } ]
+  @UI.identification: [ { position: 10, label: 'Patient ID' } ]
+  PatientID;
+
+  @UI.lineItem: [ { position: 20, label: 'First Name' } ]
+  @UI.identification: [ { position: 20, label: 'First Name' } ]
+  FirstName;
+
+  @UI.lineItem: [ { position: 30, label: 'Last Name' } ]
+  @UI.identification: [ { position: 30, label: 'Last Name' } ]
+  LastName;
+
+  @UI.lineItem: [ { position: 40, label: 'Phone' } ]
+  @UI.identification: [ { position: 40, label: 'Phone' } ]
+  Phone;
+
+  @UI.identification: [ { position: 50, label: 'Allergy' } ]
+  CriticalAllergy;
+}
