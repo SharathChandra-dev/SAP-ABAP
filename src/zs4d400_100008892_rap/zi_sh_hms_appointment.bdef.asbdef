@@ -1,0 +1,45 @@
+managed implementation in class zbp_i_sh_hms_appointment unique;
+strict ( 2 );
+
+define behavior for ZI_SH_HMS_APPOINTMENT alias Appointment
+persistent table zsh_hms_appt
+lock master
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) AppointmentUUID;
+  field ( readonly ) AppointmentID, Status, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) PatientUUID, DoctorUUID, DepartmentUUID, AppointmentDate, AppointmentTime, Reason;
+
+  determination setInitialStatus on modify { create; }
+  validation validateAppointment on save { create; update; }
+
+  action confirm result [1] $self;
+  action cancel result [1] $self;
+  action checkIn result [1] $self;
+  action complete result [1] $self;
+
+  mapping for zsh_hms_appt
+  {
+    AppointmentUUID = appointment_uuid;
+    AppointmentID = appointment_id;
+    PatientUUID = patient_uuid;
+    DoctorUUID = doctor_uuid;
+    DepartmentUUID = department_uuid;
+    AppointmentDate = appointment_date;
+    AppointmentTime = appointment_time;
+    Reason = reason;
+    Priority = priority;
+    Status = status;
+    Notes = notes;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

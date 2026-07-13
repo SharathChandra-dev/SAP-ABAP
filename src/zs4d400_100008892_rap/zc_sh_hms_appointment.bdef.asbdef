@@ -1,0 +1,14 @@
+projection;
+strict ( 2 );
+
+define behavior for ZC_SH_HMS_APPOINTMENT alias Appointment
+{
+  use create;
+  use update;
+  use delete;
+
+  use action confirm;
+  use action cancel;
+  use action checkIn;
+  use action complete;
+}
