@@ -1,0 +1,6 @@
+@EndUserText.label: 'ZR_SHHMS_APPT'
+@MappingRole: true
+define role ZR_SHHMS_APPT {
+  grant select on ZR_SHHMS_APPT
+  where TRUE;
+}

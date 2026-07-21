@@ -1,0 +1,6 @@
+@EndUserText.label: 'ZC_SHHMS_APPT'
+@MappingRole: true
+define role ZC_SHHMS_APPT {
+  grant select on ZC_SHHMS_APPT
+  where INHERITING CONDITIONS FROM ENTITY ZR_SHHMS_APPT REPLACING { ROOT WITH _BaseEntity };
+}

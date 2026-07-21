@@ -1,0 +1,88 @@
+managed implementation in class ZBP_R_SHHMS_APPT unique;
+strict ( 2 );
+with draft;
+extensible;
+
+define behavior for ZR_SHHMS_APPT alias HospitalAppoinment
+persistent table ZSH_HMS_APPT
+extensible
+draft table ZSHHMS_APPT_D
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+{
+field ( readonly )
+  AppointmentUUID,
+  PatientID,
+  DoctorID,
+  DepartmentID,
+  PatientName,
+  DoctorName,
+  DepartmentName,
+  PriorityCriticality,
+  CreatedBy,
+  CreatedAt,
+  LastChangedBy,
+  LastChangedAt,
+  LocalLastChangedAt;
+
+  field ( numbering : managed )
+    AppointmentUUID;
+
+  field ( mandatory )
+    AppointmentID,
+    PatientUUID,
+    DoctorUUID,
+    DepartmentUUID,
+    AppointmentDate,
+    AppointmentTime,
+    Reason;
+
+  determination setDisplayNames on modify
+{
+  create;
+  field PatientUUID, DoctorUUID, DepartmentUUID, Priority;
+}
+
+  validation validateAppointment on save { create; update; }
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation validateAppointment;
+  }
+
+  mapping for ZSH_HMS_APPT corresponding extensible
+  {
+    AppointmentUUID = APPOINTMENT_UUID;
+    AppointmentID = APPOINTMENT_ID;
+    PatientUUID = PATIENT_UUID;
+    DoctorUUID = DOCTOR_UUID;
+    DepartmentUUID = DEPARTMENT_UUID;
+    PatientID    = PATIENT_ID;
+    DoctorID     = DOCTOR_ID;
+    DepartmentID = DEPARTMENT_ID;
+    PatientName = PATIENT_NAME;
+    DoctorName = DOCTOR_NAME;
+    DepartmentName = DEPARTMENT_NAME;
+    AppointmentDate = APPOINTMENT_DATE;
+    AppointmentTime = APPOINTMENT_TIME;
+    Reason = REASON;
+    Priority = PRIORITY;
+    PriorityCriticality = PRIORITY_CRITICALITY;
+    Status = STATUS;
+    Notes = NOTES;
+    CreatedBy = CREATED_BY;
+    CreatedAt = CREATED_AT;
+    LastChangedBy = LAST_CHANGED_BY;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+}

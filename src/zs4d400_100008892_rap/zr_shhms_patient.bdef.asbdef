@@ -1,0 +1,54 @@
+managed implementation in class ZBP_R_SHHMS_PATIENT unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZR_SHHMS_PATIENT alias ZrShhmsPatient
+persistent table ZSH_HMS_PATIENT
+extensible
+draft table ZSHHMS_PATIENT_D
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+{
+  field ( readonly )
+   PatientUUID,
+   CreatedBy,
+   CreatedAt,
+   LastChangedBy,
+   LastChangedAt,
+   LocalLastChangedAt;
+
+  field ( numbering : managed )
+   PatientUUID;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZSH_HMS_PATIENT corresponding extensible
+  {
+    PatientUUID = PATIENT_UUID;
+    PatientID = PATIENT_ID;
+    FirstName = FIRST_NAME;
+    LastName = LAST_NAME;
+    DateOfBirth = DATE_OF_BIRTH;
+    Gender = GENDER;
+    Phone = PHONE;
+    Email = EMAIL;
+    Address = ADDRESS;
+    CriticalAllergy = CRITICAL_ALLERGY;
+    CreatedBy = CREATED_BY;
+    CreatedAt = CREATED_AT;
+    LastChangedBy = LAST_CHANGED_BY;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+}

@@ -1,0 +1,209 @@
+@Metadata.layer: #CORE
+@UI.headerInfo.title.type: #STANDARD
+@UI.headerInfo.title.value: 'PatientUUID'
+@UI.headerInfo.description.type: #STANDARD
+@UI.headerInfo.description.value: 'PatientUUID'
+annotate view ZC_SHHMS_PATIENT with
+{
+  @EndUserText.label: 'PatientUUID'
+  @UI.facet: [ {
+    label: 'General Information', 
+    id: 'GeneralInfo', 
+    purpose: #STANDARD, 
+    position: 10 , 
+    type: #IDENTIFICATION_REFERENCE
+  } ]
+  @UI.identification: [ {
+    position: 10 , 
+    label: 'PatientUUID'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 , 
+    label: 'PatientUUID'
+  } ]
+  @UI.selectionField: [ {
+    position: 10 
+  } ]
+  PatientUUID;
+  
+  @EndUserText.label: 'PatientID'
+  @UI.identification: [ {
+    position: 20 , 
+    label: 'PatientID'
+  } ]
+  @UI.lineItem: [ {
+    position: 20 , 
+    label: 'PatientID'
+  } ]
+  @UI.selectionField: [ {
+    position: 20 
+  } ]
+  PatientID;
+  
+  @EndUserText.label: 'FirstName'
+  @UI.identification: [ {
+    position: 30 , 
+    label: 'FirstName'
+  } ]
+  @UI.lineItem: [ {
+    position: 30 , 
+    label: 'FirstName'
+  } ]
+  @UI.selectionField: [ {
+    position: 30 
+  } ]
+  FirstName;
+  
+  @EndUserText.label: 'LastName'
+  @UI.identification: [ {
+    position: 40 , 
+    label: 'LastName'
+  } ]
+  @UI.lineItem: [ {
+    position: 40 , 
+    label: 'LastName'
+  } ]
+  @UI.selectionField: [ {
+    position: 40 
+  } ]
+  LastName;
+  
+  @EndUserText.label: 'DateOfBirth'
+  @UI.identification: [ {
+    position: 50 , 
+    label: 'DateOfBirth'
+  } ]
+  @UI.lineItem: [ {
+    position: 50 , 
+    label: 'DateOfBirth'
+  } ]
+  @UI.selectionField: [ {
+    position: 50 
+  } ]
+  DateOfBirth;
+  
+  @EndUserText.label: 'Gender'
+  @UI.identification: [ {
+    position: 60 , 
+    label: 'Gender'
+  } ]
+  @UI.lineItem: [ {
+    position: 60 , 
+    label: 'Gender'
+  } ]
+  @UI.selectionField: [ {
+    position: 60 
+  } ]
+  Gender;
+  
+  @EndUserText.label: 'Phone'
+  @UI.identification: [ {
+    position: 70 , 
+    label: 'Phone'
+  } ]
+  @UI.lineItem: [ {
+    position: 70 , 
+    label: 'Phone'
+  } ]
+  @UI.selectionField: [ {
+    position: 70 
+  } ]
+  Phone;
+  
+  @EndUserText.label: 'Email'
+  @UI.identification: [ {
+    position: 80 , 
+    label: 'Email'
+  } ]
+  @UI.lineItem: [ {
+    position: 80 , 
+    label: 'Email'
+  } ]
+  @UI.selectionField: [ {
+    position: 80 
+  } ]
+  Email;
+  
+  @EndUserText.label: 'Address'
+  @UI.identification: [ {
+    position: 90 , 
+    label: 'Address'
+  } ]
+  @UI.lineItem: [ {
+    position: 90 , 
+    label: 'Address'
+  } ]
+  @UI.selectionField: [ {
+    position: 90 
+  } ]
+  Address;
+  
+  @EndUserText.label: 'CriticalAllergy'
+  @UI.identification: [ {
+    position: 100 , 
+    label: 'CriticalAllergy'
+  } ]
+  @UI.lineItem: [ {
+    position: 100 , 
+    label: 'CriticalAllergy'
+  } ]
+  @UI.selectionField: [ {
+    position: 100 
+  } ]
+  CriticalAllergy;
+  
+  @UI.identification: [ {
+    position: 110 
+  } ]
+  @UI.lineItem: [ {
+    position: 110 
+  } ]
+  @UI.selectionField: [ {
+    position: 110 
+  } ]
+  CreatedBy;
+  
+  @UI.identification: [ {
+    position: 120 
+  } ]
+  @UI.lineItem: [ {
+    position: 120 
+  } ]
+  @UI.selectionField: [ {
+    position: 120 
+  } ]
+  CreatedAt;
+  
+  @UI.identification: [ {
+    position: 130 
+  } ]
+  @UI.lineItem: [ {
+    position: 130 
+  } ]
+  @UI.selectionField: [ {
+    position: 130 
+  } ]
+  LastChangedBy;
+  
+  @UI.identification: [ {
+    position: 140 
+  } ]
+  @UI.lineItem: [ {
+    position: 140 
+  } ]
+  @UI.selectionField: [ {
+    position: 140 
+  } ]
+  LastChangedAt;
+  
+  @UI.identification: [ {
+    position: 150 
+  } ]
+  @UI.lineItem: [ {
+    position: 150 
+  } ]
+  @UI.selectionField: [ {
+    position: 150 
+  } ]
+  LocalLastChangedAt;
+}
