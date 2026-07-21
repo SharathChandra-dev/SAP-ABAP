@@ -1,0 +1,171 @@
+@Metadata.layer: #CORE
+@UI.headerInfo.title.type: #STANDARD
+@UI.headerInfo.title.value: 'DoctorUUID'
+@UI.headerInfo.description.type: #STANDARD
+@UI.headerInfo.description.value: 'DoctorUUID'
+annotate view ZC_SHHMS_DOCTOR with
+{
+  @EndUserText.label: 'DoctorUUID'
+  @UI.facet: [ {
+    label: 'General Information', 
+    id: 'GeneralInfo', 
+    purpose: #STANDARD, 
+    position: 10 , 
+    type: #IDENTIFICATION_REFERENCE
+  } ]
+  @UI.identification: [ {
+    position: 10 , 
+    label: 'DoctorUUID'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 , 
+    label: 'DoctorUUID'
+  } ]
+  @UI.selectionField: [ {
+    position: 10 
+  } ]
+  DoctorUUID;
+  
+  @EndUserText.label: 'DoctorID'
+  @UI.identification: [ {
+    position: 20 , 
+    label: 'DoctorID'
+  } ]
+  @UI.lineItem: [ {
+    position: 20 , 
+    label: 'DoctorID'
+  } ]
+  @UI.selectionField: [ {
+    position: 20 
+  } ]
+  DoctorID;
+  
+  @EndUserText.label: 'DoctorName'
+  @UI.identification: [ {
+    position: 30 , 
+    label: 'DoctorName'
+  } ]
+  @UI.lineItem: [ {
+    position: 30 , 
+    label: 'DoctorName'
+  } ]
+  @UI.selectionField: [ {
+    position: 30 
+  } ]
+  DoctorName;
+  
+  @EndUserText.label: 'Specialization'
+  @UI.identification: [ {
+    position: 40 , 
+    label: 'Specialization'
+  } ]
+  @UI.lineItem: [ {
+    position: 40 , 
+    label: 'Specialization'
+  } ]
+  @UI.selectionField: [ {
+    position: 40 
+  } ]
+  Specialization;
+  
+@UI.hidden: true
+DepartmentUUID;
+  
+  
+  @EndUserText.label: 'Phone'
+  @UI.identification: [ {
+    position: 60 , 
+    label: 'Phone'
+  } ]
+  @UI.lineItem: [ {
+    position: 60 , 
+    label: 'Phone'
+  } ]
+  @UI.selectionField: [ {
+    position: 60 
+  } ]
+  Phone;
+  
+  @EndUserText.label: 'Email'
+  @UI.identification: [ {
+    position: 70 , 
+    label: 'Email'
+  } ]
+  @UI.lineItem: [ {
+    position: 70 , 
+    label: 'Email'
+  } ]
+  @UI.selectionField: [ {
+    position: 70 
+  } ]
+  Email;
+  
+  @EndUserText.label: 'IsActive'
+  @UI.identification: [ {
+    position: 80 , 
+    label: 'IsActive'
+  } ]
+  @UI.lineItem: [ {
+    position: 80 , 
+    label: 'IsActive'
+  } ]
+  @UI.selectionField: [ {
+    position: 80 
+  } ]
+  IsActive;
+  
+  @UI.identification: [ {
+    position: 90 
+  } ]
+  @UI.lineItem: [ {
+    position: 90 
+  } ]
+  @UI.selectionField: [ {
+    position: 90 
+  } ]
+  CreatedBy;
+  
+  @UI.identification: [ {
+    position: 100 
+  } ]
+  @UI.lineItem: [ {
+    position: 100 
+  } ]
+  @UI.selectionField: [ {
+    position: 100 
+  } ]
+  CreatedAt;
+  
+  @UI.identification: [ {
+    position: 110 
+  } ]
+  @UI.lineItem: [ {
+    position: 110 
+  } ]
+  @UI.selectionField: [ {
+    position: 110 
+  } ]
+  LastChangedBy;
+  
+  @UI.identification: [ {
+    position: 120 
+  } ]
+  @UI.lineItem: [ {
+    position: 120 
+  } ]
+  @UI.selectionField: [ {
+    position: 120 
+  } ]
+  LastChangedAt;
+  
+  @UI.identification: [ {
+    position: 130 
+  } ]
+  @UI.lineItem: [ {
+    position: 130 
+  } ]
+  @UI.selectionField: [ {
+    position: 130 
+  } ]
+  LocalLastChangedAt;
+}

@@ -1,0 +1,193 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Appointment',
+  typeNamePlural: 'Appointments',
+  title: { type: #STANDARD, value: 'AppointmentID' },
+  description: { type: #STANDARD, value: 'Reason' }
+}
+annotate view ZC_SHHMS_APPT with
+{
+  @UI.facet: [ {
+    id: 'GeneralInfo',
+    purpose: #STANDARD,
+    type: #IDENTIFICATION_REFERENCE,
+    label: 'Appointment Details',
+    position: 10
+  } ]
+
+  @EndUserText.label: 'Appointment UUID'
+  @UI.hidden: true
+  AppointmentUUID;
+
+  @EndUserText.label: 'Appointment ID'
+  @UI.identification: [ {
+    position: 10,
+    label: 'Appointment ID'
+  } ]
+  @UI.lineItem: [ {
+    position: 10,
+    label: 'Appointment ID',
+    importance: #HIGH
+  } ]
+  @UI.selectionField: [ { position: 10 } ]
+  AppointmentID;
+
+  @EndUserText.label: 'Patient'
+  @UI.identification: [ {
+    position: 20,
+    label: 'Patient'
+  } ]
+  PatientUUID;
+
+  @EndUserText.label: 'Doctor'
+  @UI.identification: [ {
+    position: 30,
+    label: 'Doctor'
+  } ]
+  DoctorUUID;
+
+  @EndUserText.label: 'Department'
+  @UI.identification: [ {
+    position: 40,
+    label: 'Department'
+  } ]
+  DepartmentUUID;
+
+  @EndUserText.label: 'Patient Name'
+  @UI.identification: [ {
+    position: 50,
+    label: 'Patient Name'
+  } ]
+  @UI.lineItem: [ {
+    position: 20,
+    label: 'Patient Name',
+    importance: #HIGH
+  } ]
+  PatientName;
+
+  @EndUserText.label: 'Doctor Name'
+  @UI.identification: [ {
+    position: 60,
+    label: 'Doctor Name'
+  } ]
+  @UI.lineItem: [ {
+    position: 30,
+    label: 'Doctor Name',
+    importance: #HIGH
+  } ]
+  DoctorName;
+
+  @EndUserText.label: 'Department'
+  @UI.identification: [ {
+    position: 70,
+    label: 'Department'
+  } ]
+  @UI.lineItem: [ {
+    position: 40,
+    label: 'Department',
+    importance: #HIGH
+  } ]
+  DepartmentName;
+
+  @EndUserText.label: 'Date'
+  @UI.identification: [ {
+    position: 80,
+    label: 'Date'
+  } ]
+  @UI.lineItem: [ {
+    position: 50,
+    label: 'Date',
+    importance: #HIGH
+  } ]
+  @UI.selectionField: [ { position: 20 } ]
+  AppointmentDate;
+
+  @EndUserText.label: 'Time'
+  @UI.identification: [ {
+    position: 90,
+    label: 'Time'
+  } ]
+  @UI.lineItem: [ {
+    position: 60,
+    label: 'Time',
+    importance: #HIGH
+  } ]
+  AppointmentTime;
+
+  @EndUserText.label: 'Reason'
+  @UI.identification: [ {
+    position: 100,
+    label: 'Reason'
+  } ]
+  @UI.lineItem: [ {
+    position: 70,
+    label: 'Reason',
+    importance: #HIGH
+  } ]
+  Reason;
+
+  @EndUserText.label: 'Priority'
+  @UI.identification: [ {
+    position: 110,
+    label: 'Priority'
+  } ]
+  @UI.lineItem: [ {
+    position: 80,
+    label: 'Priority',
+    importance: #HIGH,
+    criticality: 'PriorityCriticality'
+  } ]
+  Priority;
+
+  @EndUserText.label: 'Status'
+  @UI.identification: [ {
+    position: 120,
+    label: 'Status'
+  } ]
+  @UI.lineItem: [ {
+    position: 90,
+    label: 'Status',
+    importance: #HIGH
+  } ]
+  @UI.selectionField: [ { position: 30 } ]
+  Status;
+
+  @EndUserText.label: 'Notes'
+  @UI.identification: [ {
+    position: 130,
+    label: 'Notes'
+  } ]
+  @UI.lineItem: [ {
+    position: 100,
+    label: 'Notes',
+    importance: #MEDIUM
+  } ]
+  Notes;
+
+  @UI.hidden: true
+  PriorityCriticality;
+
+  @UI.hidden: true
+  PatientID;
+
+  @UI.hidden: true
+  DoctorID;
+
+  @UI.hidden: true
+  DepartmentID;
+
+  @UI.hidden: true
+  CreatedBy;
+
+  @UI.hidden: true
+  CreatedAt;
+
+  @UI.hidden: true
+  LastChangedBy;
+
+  @UI.hidden: true
+  LastChangedAt;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+}

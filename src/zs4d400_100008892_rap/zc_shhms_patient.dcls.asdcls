@@ -1,0 +1,6 @@
+@EndUserText.label: 'ZC_SHHMS_PATIENT'
+@MappingRole: true
+define role ZC_SHHMS_PATIENT {
+  grant select on ZC_SHHMS_PATIENT
+  where INHERITING CONDITIONS FROM ENTITY ZR_SHHMS_PATIENT REPLACING { ROOT WITH _BaseEntity };
+}
