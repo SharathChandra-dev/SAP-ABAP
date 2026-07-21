@@ -1,0 +1,72 @@
+managed implementation in class ZBP_R_SHHMS_DOCTOR unique;
+strict ( 2 );
+with draft;
+extensible;
+
+define behavior for ZR_SHHMS_DOCTOR alias ZrShhmsDoctor
+persistent table ZSH_HMS_DOCTOR
+extensible
+draft table ZSHHMS_DOCTOR_D
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+{
+  field ( readonly )
+    DoctorUUID,
+    CreatedBy,
+    CreatedAt,
+    LastChangedBy,
+    LastChangedAt,
+    LocalLastChangedAt;
+
+  field ( numbering : managed )
+    DoctorUUID;
+
+  field ( mandatory )
+    DoctorID,
+    DoctorName,
+    Phone,
+    Email;
+
+  determination normalizeDoctor on modify
+  {
+    create;
+    field DoctorID, DoctorName;
+  }
+
+  validation validateDoctor on save
+  {
+    create;
+    update;
+  }
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+
+draft determine action Prepare
+{
+  validation validateDoctor;
+}
+
+  mapping for ZSH_HMS_DOCTOR corresponding extensible
+  {
+    DoctorUUID = DOCTOR_UUID;
+    DoctorID = DOCTOR_ID;
+    DoctorName = DOCTOR_NAME;
+    Specialization = SPECIALIZATION;
+    Phone = PHONE;
+    Email = EMAIL;
+    IsActive = IS_ACTIVE;
+    CreatedBy = CREATED_BY;
+    CreatedAt = CREATED_AT;
+    LastChangedBy = LAST_CHANGED_BY;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+}
