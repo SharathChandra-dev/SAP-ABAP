@@ -1,0 +1,7 @@
+@EndUserText.label: 'HMS Appointment OData V4 Service'
+define service ZUI_SHHMS_APPT_O4
+  provider contracts odata_v4_ui {
+  expose ZC_SHHMS_APPT       as HospitalAppoinment;
+  expose ZVH_SH_HMS_PRIORITY as Priorities;
+  expose ZVH_SH_HMS_STATUS   as Statuses;
+}

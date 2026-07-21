@@ -1,0 +1,11 @@
+@EndUserText: {
+  label: 'Service Definition for ZC_SHHMS_DOCTOR'
+}
+@ObjectModel: {
+  leadingEntity: {
+    name: 'ZC_SHHMS_DOCTOR'
+  }
+}
+define service ZUI_SHHMS_DOCTOR_O4 provider contracts odata_v4_ui {
+  expose ZC_SHHMS_DOCTOR;
+}
