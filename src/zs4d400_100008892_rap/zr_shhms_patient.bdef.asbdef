@@ -2,25 +2,46 @@ managed implementation in class ZBP_R_SHHMS_PATIENT unique;
 strict ( 2 );
 with draft;
 extensible;
+
 define behavior for ZR_SHHMS_PATIENT alias ZrShhmsPatient
 persistent table ZSH_HMS_PATIENT
 extensible
 draft table ZSHHMS_PATIENT_D
 etag master LocalLastChangedAt
 lock master total etag LastChangedAt
-authorization master( global )
+authorization master ( global )
 {
   field ( readonly )
-   PatientUUID,
-   CreatedBy,
-   CreatedAt,
-   LastChangedBy,
-   LastChangedAt,
-   LocalLastChangedAt;
+    PatientUUID,
+    CreatedBy,
+    CreatedAt,
+    LastChangedBy,
+    LastChangedAt,
+    LocalLastChangedAt;
 
   field ( numbering : managed )
-   PatientUUID;
+    PatientUUID;
 
+  field ( mandatory )
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    Gender,
+    Phone,
+    Email;
+
+  determination formatPatientNames on modify
+  {
+    create;
+    field FirstName, LastName;
+  }
+
+  validation validatePatient on save
+  {
+    create;
+    update;
+  }
 
   create;
   update;
@@ -30,7 +51,11 @@ authorization master( global )
   draft action Discard;
   draft action Edit;
   draft action Resume;
-  draft determine action Prepare;
+
+  draft determine action Prepare
+  {
+    validation validatePatient;
+  }
 
   mapping for ZSH_HMS_PATIENT corresponding extensible
   {
@@ -50,5 +75,4 @@ authorization master( global )
     LastChangedAt = LAST_CHANGED_AT;
     LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
   }
-
 }
