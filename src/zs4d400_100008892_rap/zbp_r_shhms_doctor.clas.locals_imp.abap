@@ -9,10 +9,10 @@ CLASS lhc_zr_shhms_doctor DEFINITION
         REQUEST requested_authorizations FOR ZrShhmsDoctor
       RESULT result.
 
-    METHODS normalizeDoctor
+    METHODS formatDoctorName
       FOR DETERMINE ON MODIFY
       IMPORTING
-        keys FOR ZrShhmsDoctor~normalizeDoctor.
+        keys FOR ZrShhmsDoctor~formatDoctorName.
 
     METHODS validateDoctor
       FOR VALIDATE ON SAVE
@@ -28,17 +28,17 @@ CLASS lhc_zr_shhms_doctor IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD normalizeDoctor.
+  METHOD formatDoctorName.
 
     READ ENTITIES OF zr_shhms_doctor IN LOCAL MODE
       ENTITY ZrShhmsDoctor
-      FIELDS ( DoctorID DoctorName )
+      FIELDS ( DoctorName )
       WITH CORRESPONDING #( keys )
       RESULT DATA(doctors).
 
     LOOP AT doctors INTO DATA(doctor).
 
-      DATA words TYPE STANDARD TABLE OF string WITH EMPTY KEY.
+      DATA words          TYPE STANDARD TABLE OF string WITH EMPTY KEY.
       DATA formatted_name TYPE string.
 
       SPLIT to_lower( val = doctor-DoctorName )
@@ -51,6 +51,7 @@ CLASS lhc_zr_shhms_doctor IMPLEMENTATION.
         ENDIF.
 
         IF strlen( <word> ) > 1.
+
           <word> =
             to_upper(
               val = substring(
@@ -64,28 +65,33 @@ CLASS lhc_zr_shhms_doctor IMPLEMENTATION.
               val = <word>
               off = 1
             ).
+
         ELSE.
+
           <word> = to_upper( val = <word> ).
+
         ENDIF.
 
       ENDLOOP.
 
-      formatted_name =
-        concat_lines_of(
-          table = words
-          sep   = ` `
-        ).
+      formatted_name = concat_lines_of(
+        table = words
+        sep   = ` `
+      ).
 
-      MODIFY ENTITIES OF zr_shhms_doctor IN LOCAL MODE
-        ENTITY ZrShhmsDoctor
-        UPDATE FIELDS ( DoctorID DoctorName )
-        WITH VALUE #(
-          (
-            %tky       = doctor-%tky
-            DoctorID   = to_upper( val = doctor-DoctorID )
-            DoctorName = formatted_name
-          )
-        ).
+      IF formatted_name <> doctor-DoctorName.
+
+        MODIFY ENTITIES OF zr_shhms_doctor IN LOCAL MODE
+          ENTITY ZrShhmsDoctor
+          UPDATE FIELDS ( DoctorName )
+          WITH VALUE #(
+            (
+              %tky       = doctor-%tky
+              DoctorName = formatted_name
+            )
+          ).
+
+      ENDIF.
 
     ENDLOOP.
 
@@ -102,8 +108,14 @@ CLASS lhc_zr_shhms_doctor IMPLEMENTATION.
 
     LOOP AT doctors INTO DATA(doctor).
 
+      DATA has_error     TYPE abap_bool.
       DATA existing_uuid TYPE zsh_hms_doctor-doctor_uuid.
-      CLEAR existing_uuid.
+      DATA phone_text    TYPE string.
+
+      CLEAR:
+        has_error,
+        existing_uuid,
+        phone_text.
 
       SELECT SINGLE
         FROM zsh_hms_doctor
@@ -114,9 +126,7 @@ CLASS lhc_zr_shhms_doctor IMPLEMENTATION.
 
       IF existing_uuid IS NOT INITIAL.
 
-        APPEND VALUE #(
-          %tky = doctor-%tky
-        ) TO failed-ZrShhmsDoctor.
+        has_error = abap_true.
 
         APPEND VALUE #(
           %tky = doctor-%tky
@@ -127,68 +137,69 @@ CLASS lhc_zr_shhms_doctor IMPLEMENTATION.
           )
         ) TO reported-ZrShhmsDoctor.
 
+      ELSE.
+
+        phone_text = CONV string( doctor-Phone ).
+
+        phone_text = replace(
+          val  = phone_text
+          sub  = ` `
+          with = ``
+          occ  = 0
+        ).
+
+        IF strlen( phone_text ) <> 10
+           OR phone_text CN '0123456789'.
+
+          has_error = abap_true.
+
+          APPEND VALUE #(
+            %tky = doctor-%tky
+            %element-Phone = if_abap_behv=>mk-on
+            %msg = new_message_with_text(
+              severity = if_abap_behv_message=>severity-error
+              text = 'Phone number must contain exactly 10 digits.'
+            )
+          ) TO reported-ZrShhmsDoctor.
+
+        ELSEIF doctor-Email IS INITIAL
+           OR doctor-Email NA '@'
+           OR doctor-Email NA '.'.
+
+          has_error = abap_true.
+
+          APPEND VALUE #(
+            %tky = doctor-%tky
+            %element-Email = if_abap_behv=>mk-on
+            %msg = new_message_with_text(
+              severity = if_abap_behv_message=>severity-error
+              text = 'Enter a valid email address.'
+            )
+          ) TO reported-ZrShhmsDoctor.
+
+        ELSEIF doctor-IsActive <> abap_true
+           AND doctor-IsActive <> abap_false.
+
+          has_error = abap_true.
+
+          APPEND VALUE #(
+            %tky = doctor-%tky
+            %element-IsActive = if_abap_behv=>mk-on
+            %msg = new_message_with_text(
+              severity = if_abap_behv_message=>severity-error
+              text = 'Is Active must be X for active or blank for inactive.'
+            )
+          ) TO reported-ZrShhmsDoctor.
+
+        ENDIF.
+
       ENDIF.
 
-      DATA(phone_text) = CONV string( doctor-Phone ).
-
-      phone_text = replace(
-        val  = phone_text
-        sub  = ` `
-        with = ``
-        occ  = 0
-      ).
-
-      IF strlen( phone_text ) <> 10
-         OR phone_text CN '0123456789'.
+      IF has_error = abap_true.
 
         APPEND VALUE #(
           %tky = doctor-%tky
         ) TO failed-ZrShhmsDoctor.
-
-        APPEND VALUE #(
-          %tky = doctor-%tky
-          %element-Phone = if_abap_behv=>mk-on
-          %msg = new_message_with_text(
-            severity = if_abap_behv_message=>severity-error
-            text = 'Phone number must contain exactly 10 digits.'
-          )
-        ) TO reported-ZrShhmsDoctor.
-
-      ENDIF.
-
-      IF doctor-Email NA '@'
-         OR doctor-Email NA '.'.
-
-        APPEND VALUE #(
-          %tky = doctor-%tky
-        ) TO failed-ZrShhmsDoctor.
-
-        APPEND VALUE #(
-          %tky = doctor-%tky
-          %element-Email = if_abap_behv=>mk-on
-          %msg = new_message_with_text(
-            severity = if_abap_behv_message=>severity-error
-            text = 'Enter a valid email address.'
-          )
-        ) TO reported-ZrShhmsDoctor.
-
-      ENDIF.
-
-      IF doctor-IsActive <> abap_true
-         AND doctor-IsActive <> abap_false.
-
-        APPEND VALUE #(
-          %tky = doctor-%tky
-        ) TO failed-ZrShhmsDoctor.
-
-        APPEND VALUE #(
-          %tky = doctor-%tky
-          %element-IsActive = if_abap_behv=>mk-on
-          %msg = new_message_with_text(
-            severity = if_abap_behv_message=>severity-error
-            text = 'Is Active must be selected as active or inactive.'
-          )
-        ) TO reported-ZrShhmsDoctor.
 
       ENDIF.
 
