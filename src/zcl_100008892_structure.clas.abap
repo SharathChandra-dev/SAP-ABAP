@@ -1,4 +1,4 @@
-CLASS zcl_100008892_instances DEFINITION
+CLASS zcl_100008892_structure DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC.
@@ -9,60 +9,49 @@ CLASS zcl_100008892_instances DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_100008892_instances IMPLEMENTATION.
+CLASS zcl_100008892_structure IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
 
     DATA connection  TYPE REF TO lcl_connection.
     DATA connections TYPE TABLE OF REF TO lcl_connection.
 
-* First connection
     TRY.
         connection = NEW #(
           i_carrier_id    = 'LH'
           i_connection_id = '0400'
         ).
-
         APPEND connection TO connections.
 
       CATCH cx_abap_invalid_value.
-        out->write( `Instance creation failed` ).
+        out->write( `LH 0400 was not found` ).
     ENDTRY.
 
-* Second connection
     TRY.
         connection = NEW #(
           i_carrier_id    = 'AA'
           i_connection_id = '0017'
         ).
-
         APPEND connection TO connections.
 
       CATCH cx_abap_invalid_value.
-        out->write( `Instance creation failed` ).
+        out->write( `AA 0017 was not found` ).
     ENDTRY.
 
-* Third connection
     TRY.
         connection = NEW #(
           i_carrier_id    = 'SQ'
           i_connection_id = '0001'
         ).
-
         APPEND connection TO connections.
 
       CATCH cx_abap_invalid_value.
-        out->write( `Instance creation failed` ).
+        out->write( `SQ 0001 was not found` ).
     ENDTRY.
 
-* Display all connections
     LOOP AT connections INTO connection.
       out->write( connection->get_output( ) ).
     ENDLOOP.
-
-    out->write(
-      |Successfully created instances: { lcl_connection=>conn_counter }|
-    ).
 
   ENDMETHOD.
 

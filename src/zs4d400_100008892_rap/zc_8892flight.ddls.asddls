@@ -1,40 +1,50 @@
 @Metadata.allowExtensions: true
 @Metadata.ignorePropagatedAnnotations: true
-@Endusertext: {
-  Label: '###GENERATED Core Data Service Entity'
-}
-@Objectmodel: {
-  Sapobjectnodetype.Name: 'Z8892FLIGHT'
-}
+@EndUserText.label: 'Flight Service Projection'
+@ObjectModel.sapObjectNodeType.name: 'Z8892FLIGHT'
 @AccessControl.authorizationCheck: #MANDATORY
 define root view entity ZC_8892FLIGHT
-  provider contract TRANSACTIONAL_QUERY
+  provider contract transactional_query
   as projection on ZR_8892FLIGHT
-  association [1..1] to ZR_8892FLIGHT as _BaseEntity on $projection.CARRIERID = _BaseEntity.CARRIERID and $projection.CONNECTIONID = _BaseEntity.CONNECTIONID and $projection.FLIGHTDATE = _BaseEntity.FLIGHTDATE
+
+  association [1..1] to ZR_8892FLIGHT as _BaseEntity
+    on  $projection.CarrierID    = _BaseEntity.CarrierID
+    and $projection.ConnectionID = _BaseEntity.ConnectionID
+    and $projection.FlightDate   = _BaseEntity.FlightDate
 {
   key CarrierID,
   key ConnectionID,
   key FlightDate,
-  PlaneTypeID,
-  @Semantics: {
-    User.Createdby: true
-  }
-  LocalCreatedBy,
-  @Semantics: {
-    Systemdatetime.Createdat: true
-  }
-  LocalCreatedAt,
-  @Semantics: {
-    User.Localinstancelastchangedby: true
-  }
-  LocalLastChangedBy,
-  @Semantics: {
-    Systemdatetime.Localinstancelastchangedat: true
-  }
-  LocalLastChangedAt,
-  @Semantics: {
-    Systemdatetime.Lastchangedat: true
-  }
-  LastChangedAt,
-  _BaseEntity
+
+      PlaneTypeID,
+
+      @Semantics.amount.currencyCode: 'CurrencyCode'
+      Price,
+
+      @Consumption.valueHelpDefinition: [
+        {
+          entity: {
+            name: 'I_CurrencyStdVH',
+            element: 'Currency'
+          }
+        }
+      ]
+      CurrencyCode,
+
+      @Semantics.user.createdBy: true
+      LocalCreatedBy,
+
+      @Semantics.systemDateTime.createdAt: true
+      LocalCreatedAt,
+
+      @Semantics.user.localInstanceLastChangedBy: true
+      LocalLastChangedBy,
+
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      LocalLastChangedAt,
+
+      @Semantics.systemDateTime.lastChangedAt: true
+      LastChangedAt,
+
+      _BaseEntity
 }

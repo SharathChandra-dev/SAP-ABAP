@@ -9,12 +9,11 @@ CLASS zcl_100008892_cds DEFINITION
 ENDCLASS.
 
 
-
 CLASS zcl_100008892_cds IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
 
-    DATA connection TYPE REF TO lcl_connection.
+    DATA connection  TYPE REF TO lcl_connection.
     DATA connections TYPE TABLE OF REF TO lcl_connection.
 
     TRY.
@@ -22,11 +21,10 @@ CLASS zcl_100008892_cds IMPLEMENTATION.
           i_carrier_id    = 'LH'
           i_connection_id = '0400'
         ).
-
         APPEND connection TO connections.
 
       CATCH cx_abap_invalid_value.
-        out->write( 'First method call failed'(003) ).
+        out->write( `LH 0400 was not found` ).
     ENDTRY.
 
     TRY.
@@ -34,11 +32,10 @@ CLASS zcl_100008892_cds IMPLEMENTATION.
           i_carrier_id    = 'AA'
           i_connection_id = '0017'
         ).
-
         APPEND connection TO connections.
 
       CATCH cx_abap_invalid_value.
-        out->write( 'Second method call failed'(002) ).
+        out->write( `AA 0017 was not found` ).
     ENDTRY.
 
     TRY.
@@ -46,11 +43,10 @@ CLASS zcl_100008892_cds IMPLEMENTATION.
           i_carrier_id    = 'SQ'
           i_connection_id = '0001'
         ).
-
         APPEND connection TO connections.
 
       CATCH cx_abap_invalid_value.
-        out->write( 'Third method call failed'(001) ).
+        out->write( `SQ 0001 was not found` ).
     ENDTRY.
 
     LOOP AT connections INTO connection.

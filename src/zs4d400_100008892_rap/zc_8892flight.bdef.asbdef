@@ -3,18 +3,18 @@ strict ( 2 );
 extensible;
 use draft;
 use side effects;
+
 define behavior for ZC_8892FLIGHT alias Zc8892flight
 extensible
 use etag
 {
-  use create;
+  field ( readonly ) PlaneTypeID;
+
   use update;
-  use delete;
 
   use action Edit;
   use action Activate;
   use action Discard;
   use action Resume;
   use action Prepare;
-
 }

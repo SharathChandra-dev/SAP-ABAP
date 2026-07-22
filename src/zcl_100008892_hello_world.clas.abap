@@ -16,6 +16,6 @@ CLASS zcl_100008892_hello_world IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
-  out->write( 'Hello Sharath' ).
+  out->write( 'Hello World' ).
   ENDMETHOD.
 ENDCLASS.
