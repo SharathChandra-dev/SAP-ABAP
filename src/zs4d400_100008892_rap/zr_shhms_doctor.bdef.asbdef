@@ -28,10 +28,10 @@ authorization master ( global )
     Phone,
     Email;
 
-  determination normalizeDoctor on modify
+  determination formatDoctorName on modify
   {
     create;
-    field DoctorID, DoctorName;
+    field DoctorName;
   }
 
   validation validateDoctor on save
@@ -49,10 +49,10 @@ authorization master ( global )
   draft action Edit;
   draft action Resume;
 
-draft determine action Prepare
-{
-  validation validateDoctor;
-}
+  draft determine action Prepare
+  {
+    validation validateDoctor;
+  }
 
   mapping for ZSH_HMS_DOCTOR corresponding extensible
   {
